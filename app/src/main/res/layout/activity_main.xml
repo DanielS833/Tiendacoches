@@ -20,11 +20,11 @@
 
     <ImageButton
         android:id="@+id/crear"
-        android:layout_width="77dp"
-        android:layout_height="59dp"
+        android:layout_width="53dp"
+        android:layout_height="43dp"
         android:layout_gravity="center|bottom"
         android:background="@null"
-        android:scaleType="fitCenter"
+        android:scaleType="centerCrop"
         android:src="@drawable/add"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteX="16dp"
