@@ -1,6 +1,5 @@
 package com.example.tiendarecyclerview.object_models
 
-import com.example.tiendarecyclerview.controler.Controller
 import com.example.tiendarecyclerview.models.Coche
 
 object Repository {

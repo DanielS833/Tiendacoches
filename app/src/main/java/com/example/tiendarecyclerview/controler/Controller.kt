@@ -4,52 +4,45 @@ import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.Toast
+import androidx.recyclerview.widget.RecyclerView
 import com.example.tiendarecyclerview.MainActivity
 import com.example.tiendarecyclerview.R
 import com.example.tiendarecyclerview.adapter.Adaptercoche
 import com.example.tiendarecyclerview.dao.DaoCoches
 import com.example.tiendarecyclerview.models.Coche
 
-class Controller(val context: Context) {
+class Controller(val context: Context, val recyclerView: RecyclerView) {
+
     lateinit var listCoches : MutableList<Coche>
     private lateinit var adapterCoche : Adaptercoche
+
     init {
         initData()
     }
-    fun initData(){
-        listCoches = DaoCoches. myDao.getDataCoches(). toMutableList() //llamamos al singleton.
+
+    fun initData() {
+        listCoches = DaoCoches.myDao.getDataCoches().toMutableList()
     }
-    fun loggOut() {
-        Toast.makeText( context, "He mostrado los datos en pantalla", Toast. LENGTH_LONG).show()
-        listCoches.forEach{
-            println (it)
-        }
-    }
+
     fun setAdapter() {
-        val myActivity = context as MainActivity
         adapterCoche = Adaptercoche(
             listCoches,
-            {
-                    pos-> delCoche(pos)
-            },
-            {
-                    pos-> updateCoche(pos)
-            }
+            { pos -> delCoche(pos) },
+            { pos -> updateCoche(pos) }
         )
-        myActivity.binding.myrecyclerview.adapter = adapterCoche
-        crearCoche()
+        recyclerView.adapter = adapterCoche
     }
+
     fun delCoche(pos : Int){
-        Toast.makeText( context, "Borraremos el coche de posición $pos",
-            Toast.LENGTH_LONG).show()
+        Toast.makeText(context, "Borraremos el coche de posición $pos", Toast.LENGTH_LONG).show()
         listCoches.removeAt(pos)
         adapterCoche.notifyItemRemoved(pos)
     }
 
     fun updateCoche(pos: Int) {
         val coche = listCoches[pos]
-
         val layout = LayoutInflater.from(context).inflate(R.layout.dialog_edit_coche, null)
 
         val etName = layout.findViewById<EditText>(R.id.etName)
@@ -77,22 +70,16 @@ class Controller(val context: Context) {
             .show()
     }
 
-    fun crearCoche() {
-        val mainActivity = context as MainActivity
-
-        mainActivity.binding.crear.setOnClickListener {
-
+    fun crearCoche(crearButton: ImageButton) {
+        crearButton.setOnClickListener {
             val nuevoCoche = Coche(
                 name = "Nuevo coche",
                 brand = "Marca",
                 price = 0,
                 image = "https://via.placeholder.com/300"
             )
-
             listCoches.add(nuevoCoche)
-
             adapterCoche.notifyItemInserted(listCoches.size - 1)
-
             Toast.makeText(context, "Coche creado", Toast.LENGTH_SHORT).show()
         }
     }

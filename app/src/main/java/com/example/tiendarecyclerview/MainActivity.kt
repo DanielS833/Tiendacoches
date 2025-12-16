@@ -1,32 +1,54 @@
 package com.example.tiendarecyclerview
 
 import android.os.Bundle
-import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.tiendarecyclerview.controler.Controller
-import com.example.tiendarecyclerview.databinding.ActivityMainBinding
+import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 
 class MainActivity : AppCompatActivity() {
-    lateinit var controller : Controller
-    lateinit var binding : ActivityMainBinding
-    // lateinit var recyclerView: RecyclerView
+
+    private lateinit var navController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding =ActivityMainBinding.inflate( layoutInflater)
-        setContentView( binding.root)
-        init()
-    }
-    fun init(){
-        initRecyclerView()
-        controller = Controller(this)
-        controller.setAdapter()
-    }
-    private fun initRecyclerView() {
-        binding.myrecyclerview.layoutManager = LinearLayoutManager(this)
+        setContentView(R.layout.activity_main)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        val navHostFragment =
+            supportFragmentManager.findFragmentById(
+                R.id.nav_host_fragment_content_main
+            ) as NavHostFragment
+
+        navController = navHostFragment.navController
+        appBarConfiguration = AppBarConfiguration(navController.graph)
+
+        setupActionBarWithNavController(navController, appBarConfiguration)
     }
 
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.toolbar_home -> {
+                navController.navigate(R.id.fragmentdaniel)
+                true
+            }
+            R.id.toolbar_coches -> {
+                navController.navigate(R.id.fragmenttiendacoches)
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
 }

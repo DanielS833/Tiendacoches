@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/fragmentdaniel">
+
+    <fragment
+        android:id="@+id/fragmentdaniel"
+        android:name="com.example.tiendarecyclerview.FragmentDaniel"
+        android:label="Fragment_Daniel" />
+
+    <fragment
+        android:id="@+id/fragmenttiendacoches"
+        android:name="com.example.tiendarecyclerview.FragmentTiendaCoches"
+        android:label="Tienda de Coches" />
+
+</navigation>

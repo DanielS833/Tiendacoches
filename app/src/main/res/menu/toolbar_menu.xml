@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/toolbar_home"
+        android:title="Fragment_Daniel" />
+
+    <item
+        android:id="@+id/toolbar_coches"
+        android:title="Tienda de Coches" />
+
+</menu>
